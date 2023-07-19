@@ -1,0 +1,65 @@
+digraph numeric
+{
+	node [shape=record]
+
+	semigroup [label="{Semigroup | (\<\>) :: a -\> a -\> a}"]
+	semigroup -> monoid
+
+	monoid [label="{Monoid | mempty :: a}"]
+	monoid -> group
+
+	commutativeMonoid [label="{CommutativeMonoid}"]
+	monoid -> commutativeMonoid
+
+	group [label="{Group | inverse :: a -\> a}"]
+	group -> commutativeMonoid [label="via Commutative" style="dashed"]
+
+	// it's so tempting to call this an abelian group but UGH
+	commutativeGroup [label="{CommutativeGroup}"]
+	group -> commutativeGroup
+	commutativeGroup -> commutativeMonoid [label="via Commutative" style="dashed"]
+
+// --------------------------------------------------------------------------------
+
+	/* rng [label="{Rng | (+) :: a -\> a -\> a\nzero :: a\n(*) :: a -\> a -\> a\none :: a}"] */
+	/* rng -> ring */
+
+	/* rng -> commutativeGroup [label="via Sum" style="dashed"] */
+	/* rng -> semigroup [label="via Product" style="dashed"] */
+
+	semiring [label="{Semiring | (+) :: a -\> a -\> a\none :: a\n(*) :: a -\> a -\> a\nzero}"]
+	semiring -> commutativeMonoid [label="via Sum" style="dotted"]
+	semiring -> monoid [label="via Product" style="dotted"]
+	semiring -> ring
+
+	// Ring could be a subclass of Rng or Semiring (probably the better option)
+	// ring [label="{Ring | (+) :: a -\> a -\> a\n(-) :: a -\> a -\> a\nzero :: a\n(*) :: a -\> a -\> a\none :: a}"]
+
+	ring [label="{Ring | (-) :: a -\> a -\> a\nnegate :: a -\> a}"]
+	ring -> divisionRing
+	ring -> commutativeRing
+
+	commutativeRing [label="{CommutativeRing}"]
+	divisionRing [label="{DivisionRing | (/) :: a -\> a -\> a\nreciprocal :: a -\> a}"]
+
+	commutativeRing -> field
+	divisionRing -> field
+
+	field [label="{Field}"]
+
+// --------------------------------------------------------------------------------
+
+	functor [label="{Functor | fmap :: (a -\> b) -\> f a -\> f b}"]
+	functor -> applicative
+
+	applicative [label="{Applicative | pure :: a -\> f a\n(\<*\>) :: f (a -\> b) -\> f a -\> f b}"]
+	applicative -> monad
+
+	alternative [label="{Alternative | empty :: a\n(\<\|\>) :: f a -\> f a -\> f a}"]
+	applicative -> alternative
+
+	monad [label="{Monad | (=\<\<) :: (a -\> f b) -\> f a -\> f b}"]
+	arrow [label="{Arrow | arr :: (a -\> b) -\> a b c}"]
+	monad -> arrow [label="via Kleisli" style="dashed"]
+}
+
