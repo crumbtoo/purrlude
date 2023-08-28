@@ -8,17 +8,17 @@ import Test.QuickCheck
 -- these tests are kinda useless. i haven't used quickcheck before lol. ideally
 -- i could somehow test all insances of a class...
 
-semiring_additionAssociativity :: (Semiring a) => a -> a -> a -> Bool
-semiring_additionAssociativity a b c = (a + b) + c == a + (b + c)
+additionAssociativity :: forall a. (Semiring a) => a -> a -> a -> Bool
+additionAssociativity a b c = (a + b) + c == a + (b + c)
 
-semiring_additionCommutivity :: (Semiring a) => a -> a -> Bool
-semiring_additionCommutivity a b = a + b == b + a
+additionCommutivity :: (Semiring a) => a -> a -> Bool
+additionCommutivity a b = a + b == b + a
 
-semiring_additionIdentity :: (Semiring a) => a -> Bool
-semiring_additionIdentity a = a + zero == a && zero + a == a
+additionIdentity :: (Semiring a) => a -> Bool
+additionIdentity a = a + zero == a && zero + a == a
 
-semiring_multiplicationAssociativity :: (Semiring a) => a -> a -> a -> Bool
-semiring_multiplicationAssociativity a b c = (a * b) * c == a * (b * c)
+multiplicationAssociativity :: (Semiring a) => a -> a -> a -> Bool
+multiplicationAssociativity a b c = (a * b) * c == a * (b * c)
 
 -- TH thing
 return []

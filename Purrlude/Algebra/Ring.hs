@@ -1,18 +1,19 @@
-{-# LANGUAGE GADTs, PatternSynonyms #-}
-module Algebra.Ring
+module Purrlude.Algebra.Ring
     ( Ring(..)
+    , CommutativeRing(..)
     ) where
 --------------------------------------------------------------------------------
 import           Prelude            hiding (Semigroup(..), Monoid(..), (*), (+)
                                            , negate, (-))
 import qualified Prelude            as Prelude
-import           Algebra.Semiring
+import           Purrlude.Algebra.Semiring
 --------------------------------------------------------------------------------
 
 {-
-a Ring is a Semiring with negation, and thereby subtraction. a Ring is an
-abelian group under addition, and a monoid under multiplication (see Sum and
-Product newtypes). Abides by the Semiring laws, in addition to the following:
+a 'Ring' is a 'Semiring' with negation, and thereby subtraction. a 'Ring' gives
+rise to a 'CommutativeGroup' (addition, negate, zero) and a 'Monoid'
+(multiplication, one) via the 'Sum' and 'Product' wrappers, respectively. Abides
+by the Semiring laws, in addition to the following:
 
 @
     -- additive inverse
@@ -31,26 +32,30 @@ class (Semiring a) => Ring a where
 
     {-# MINIMAL negate | (-) #-}
 
+{-|
+a 'Ring', but multiplication is commutative
+-}
+class (Ring a) => CommutativeRing a
+
 --------------------------------------------------------------------------------
 
 instance Ring Int where
     negate = Prelude.negate
     (-) = (Prelude.-)
 
-    {-# INLINE negate #-}
-    {-# INLINE (-) #-}
-
 instance Ring Integer where
     negate = Prelude.negate
     (-) = (Prelude.-)
-
-    {-# INLINE negate #-}
-    {-# INLINE (-) #-}
 
 instance Ring Double where
     negate = Prelude.negate
     (-) = (Prelude.-)
 
-    {-# INLINE negate #-}
-    {-# INLINE (-) #-}
+instance Ring Float where
+    negate = Prelude.negate
+    (-) = (Prelude.-)
+
+instance Ring Rational where
+    negate = Prelude.negate
+    (-) = (Prelude.-)
 

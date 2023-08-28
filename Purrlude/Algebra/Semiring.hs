@@ -1,20 +1,22 @@
 {-# LANGUAGE DefaultSignatures #-}
-module Algebra.Semiring
-    ( Semiring(..) )
-    where
+module Purrlude.Algebra.Semiring
+    ( Semiring(..)
+    , CommutativeSemiring(..)
+    ) where
 --------------------------------------------------------------------------------
 import           Prelude                hiding (Semigroup(..), Monoid(..), (+), (*))
 import qualified Prelude
-import           Data.Monoid            (Sum(..), Product(..))
-import           Algebra.Monoid
+import           Purrlude.Algebra.Monoid
 import           Control.Applicative    (liftA2)
 import           Numeric.Natural
 --------------------------------------------------------------------------------
 
 {-|
-a Semiring is a structure for which addition and multiplication are defined.
-the looser requirements than a Ring or Field permit lawful instances for types
-such as @Nat@.
+a 'Semiring' is a structure for which addition and multiplication are defined
+and abide by some familiar laws. the looser requirements than a 'Ring' or
+'Field' permit lawful instances for types such as @Nat@. every 'Semiring' gives
+rise to both a 'CommutativeMonoid' (addition and zero) and a 'Monoid'
+(multiplication and one), via 'Sum' and 'Product', rspectively.
 
 @
     -- commutivity of addition
@@ -57,62 +59,67 @@ class (Eq a) => Semiring a where
 infix 7 *
 infix 6 +
 
+{-|
+a 'Semiring', but multiplication is commutative
+
+@
+    a * b === b * a
+@
+-}
+class (Semiring a) => CommutativeSemiring a
+
 --------------------------------------------------------------------------------
 
--- any Semiring gives rise to a Monoid, either under addition and zero, or
--- multiplication and one
-
-instance (Semiring a) => Monoid (Sum a) where
-    (<>) = liftA2 (+)
-    mempty = Sum zero
-
-    {-# INLINE (<>) #-}
-
-instance (Semiring a) => Monoid (Product a) where
-    (<>) = liftA2 (*)
-    mempty = Product one
-
-    {-# INLINE (<>) #-}
+instance Semiring () where
+    _ + _ = ()
+    _ * _ = ()
+    one = ()
+    zero = ()
 
 --------------------------------------------------------------------------------
 
 instance Semiring Int where
     (+) = (Prelude.+)
-    zero = 0
-
     (*) = (Prelude.*)
     one = 1
-
-    {-# INLINE (+) #-}
-    {-# INLINE (*) #-}
+    zero = 0
 
 instance Semiring Integer where
     (+) = (Prelude.+)
-    zero = 0
-
     (*) = (Prelude.*)
     one = 1
-
-    {-# INLINE (+) #-}
-    {-# INLINE (*) #-}
-
-instance Semiring Natural where
-    (+) = (Prelude.+)
     zero = 0
-
-    (*) = (Prelude.*)
-    one = 1
-
-    {-# INLINE (+) #-}
-    {-# INLINE (*) #-}
 
 instance Semiring Double where
     (+) = (Prelude.+)
-    zero = 0
-
     (*) = (Prelude.*)
     one = 1
+    zero = 0
 
-    {-# INLINE (+) #-}
-    {-# INLINE (*) #-}
+instance Semiring Float where
+    (+) = (Prelude.+)
+    (*) = (Prelude.*)
+    one = 1
+    zero = 0
+
+instance Semiring Bool where
+    (+) = (||)
+    zero = False
+    (*) = (&&)
+    one = True
+
+instance Semiring Rational where
+    (+) = (Prelude.+)
+    (*) = (Prelude.*)
+    one = 1
+    zero = 0
+
+--------------------------------------------------------------------------------
+
+instance CommutativeSemiring Int
+instance CommutativeSemiring Integer
+instance CommutativeSemiring Double
+instance CommutativeSemiring Float
+instance CommutativeSemiring Bool
+instance CommutativeSemiring Rational
 

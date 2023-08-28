@@ -19,11 +19,12 @@ maintainer:         crumb@duck.com
 
 library
     exposed-modules:  Purrlude
-                    , Algebra.Group
-                    , Algebra.Monoid
-                    , Algebra.Scalable
-                    , Algebra.Semiring
-                    , Algebra.VectorSpace
+                    , Algebra.Semigroup
+                    -- , Algebra.Group
+                    -- , Algebra.Monoid
+                    -- , Algebra.Scalable
+                    -- , Algebra.Semiring
+                    -- , Algebra.VectorSpace
                     , Number.Peano
                     , Number.Vector
 
@@ -32,7 +33,7 @@ library
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    base ^>=4.16.4.0
-    hs-source-dirs:   src
+    hs-source-dirs:   Purrlude
     default-language: Haskell2010
 
 test-suite purrlude-test
