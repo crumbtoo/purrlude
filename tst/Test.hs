@@ -9,7 +9,7 @@ import           Data.Proxy
 import           Algebra.Semigroup
 import           Algebra.Monoid
 import           Test.QuickCheck
-import           Test.QuickCheck.Classes            (Laws(..), lawsCheck
+import           Test.QuickCheck.Classes            ( Laws(..), lawsCheck
                                                     , lawsCheckMany
                                                     )
 import           Text.Printf                        (printf)
