@@ -17,7 +17,6 @@ digraph numeric
 	// it's so tempting to call this an abelian group but UGH
 	commutativeGroup [label="{CommutativeGroup}"]
 	group -> commutativeGroup
-	commutativeGroup -> commutativeMonoid [label="via Commutative" style="dashed"]
 
 // --------------------------------------------------------------------------------
 
