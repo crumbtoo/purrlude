@@ -1,6 +1,12 @@
 module Algebra.Semigroup
     ( Semigroup(..)
     , CommutativeSemigroup
+
+    -- newtypes
+    , Sum(..)
+    , Product(..)
+    , Any(..)
+    , All(..)
     )
     where
 --------------------------------------------------------------------------------

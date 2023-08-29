@@ -43,5 +43,6 @@ test-suite purrlude-test
     main-is:          Test.hs
     build-depends:    base ^>=4.16.4.0
                     , QuickCheck
+                    , quickcheck-classes
                     , purrlude
 
