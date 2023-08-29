@@ -1,4 +1,4 @@
-module Purrlude.Algebra.Monoid
+module Algebra.Monoid
     ( Monoid(..)
     , CommutativeMonoid(..)
     ) where
@@ -6,7 +6,7 @@ module Purrlude.Algebra.Monoid
 import           Prelude            hiding (Semigroup(..), Monoid(..), (+), (*))
 import qualified Prelude
 import           Data.Monoid        (Sum(..), Product(..), Any(..), All(..))
-import           Purrlude.Algebra.Semigroup
+import           Algebra.Semigroup
 --------------------------------------------------------------------------------
 
 {-|

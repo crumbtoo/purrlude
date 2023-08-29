@@ -1,11 +1,11 @@
-module Purrlude.Algebra.IntegralDomain
+module Algebra.IntegralDomain
     ( IntegralDomain(..)
     )
     where
 --------------------------------------------------------------------------------
 import           Prelude            hiding (div, mod, divMod)
 import qualified Prelude
-import           Purrlude.Algebra.Ring
+import           Algebra.Ring
 --------------------------------------------------------------------------------
 {-|
 an 'IntegralDomain'

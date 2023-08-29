@@ -1,5 +1,5 @@
 {-# LANGUAGE FunctionalDependencies, DefaultSignatures #-}
-module Purrlude.Algebra.Scalable
+module Algebra.Scalable
     ( Scalable(..)
     ) where
 --------------------------------------------------------------------------------

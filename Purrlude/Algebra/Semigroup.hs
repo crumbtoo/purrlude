@@ -1,4 +1,4 @@
-module Purrlude.Algebra.Semigroup
+module Algebra.Semigroup
     ( Semigroup(..)
     , CommutativeSemigroup
     )

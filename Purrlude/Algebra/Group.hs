@@ -1,9 +1,9 @@
-module Purrlude.Algebra.Group
+module Algebra.Group
     ( Group(..)
     ) where
 --------------------------------------------------------------------------------
 import           Prelude            hiding ((+), Monoid(..), Semigroup(..))
-import           Purrlude.Algebra.Monoid
+import           Algebra.Monoid
 import           Data.Monoid        (Sum(..), Product(..), Any(..), All(..))
 import           Data.Ratio         ((%))
 --------------------------------------------------------------------------------

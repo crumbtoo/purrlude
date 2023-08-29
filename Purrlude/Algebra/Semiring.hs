@@ -1,12 +1,12 @@
 {-# LANGUAGE DefaultSignatures #-}
-module Purrlude.Algebra.Semiring
+module Algebra.Semiring
     ( Semiring(..)
     , CommutativeSemiring(..)
     ) where
 --------------------------------------------------------------------------------
 import           Prelude                hiding (Semigroup(..), Monoid(..), (+), (*))
 import qualified Prelude
-import           Purrlude.Algebra.Monoid
+import           Algebra.Monoid
 import           Control.Applicative    (liftA2)
 import           Numeric.Natural
 --------------------------------------------------------------------------------

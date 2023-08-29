@@ -1,4 +1,4 @@
-module Purrlude.Algebra.Ring
+module Algebra.Ring
     ( Ring(..)
     , CommutativeRing(..)
     ) where
@@ -6,7 +6,7 @@ module Purrlude.Algebra.Ring
 import           Prelude            hiding (Semigroup(..), Monoid(..), (*), (+)
                                            , negate, (-))
 import qualified Prelude            as Prelude
-import           Purrlude.Algebra.Semiring
+import           Algebra.Semiring
 --------------------------------------------------------------------------------
 
 {-
