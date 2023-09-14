@@ -26,8 +26,10 @@ digraph numeric
 	/* rng -> commutativeGroup [label="via Sum" style="dashed"] */
 	/* rng -> semigroup [label="via Product" style="dashed"] */
 
-	semiring [label="{Semiring | (+) :: a -\> a -\> a\none :: a\n(*) :: a -\> a -\> a\nzero}"]
-	semiring -> commutativeMonoid [label="via Sum" style="dotted"]
+	nearsemiring [label="{NearSemiring | (+) :: a -\> a -\> a\n(*) :: a -\> a -\> a\nzero}"]
+	nearsemiring -> commutativeMonoid [label="via Sum" style="dotted"]
+	nearsemiring -> semiring
+	semiring [label="{Semiring | one :: a}"]
 	semiring -> monoid [label="via Product" style="dotted"]
 	semiring -> ring
 

@@ -10,22 +10,20 @@ import           Algebra.Semiring
 
 {-|
 scaling generalises multiplication from @factor * factor@ to @scalar * factor@.
-when @v@ and @s@ are of the same type, and instances of @Num@,
-@(!*) = (Prelude.*)@
+when @v@ and @s@ are of the same type, and instances of @Num@, @(!*) =
+(Prelude.*)@
+
+todo laws
 -}
 class Scalable v where
     type Scalar v :: *
 
     -- | left scalar multiplication
     (!*) :: Scalar v -> v        -> v
-    -- | right scalar multiplication
-    (*!) :: v        -> Scalar v -> v
 
     type Scalar v = v
-    default (!*) :: (Scalar v ~ v, Semiring v) => Scalar v -> v -> v
-    default (*!) :: (Scalar v ~ v, Semiring v) => v -> Scalar v -> v
+    default (!*) :: (Scalar v ~ v, NearSemiring v) => Scalar v -> v -> v
     (!*) = (*)
-    (*!) = (*)
 
 {- consider, instead of Scalable:
  -  class Mult a b r | a b -> r where

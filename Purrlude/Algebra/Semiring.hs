@@ -1,6 +1,7 @@
 {-# LANGUAGE DefaultSignatures #-}
 module Algebra.Semiring
     ( Semiring(..)
+    , NearSemiring(..)
     , CommutativeSemiring(..)
     ) where
 --------------------------------------------------------------------------------
@@ -10,6 +11,41 @@ import           Algebra.Monoid
 import           Control.Applicative    (liftA2)
 import           Numeric.Natural
 --------------------------------------------------------------------------------
+
+{-|
+a 'Semiring' without the requirement of a multiplicative identity, nor right
+distributivity. Gives rise to a 'CommutativeMonoid' (@a@, @(+)@, @zero@) via
+'Sum', and a 'Semigroup' (@a@, @(*)@) via 'Product'
+
+@
+    -- commutivity of addition
+    a + b === b + a
+    -- associativity of addition
+    a + (b + c) === (a + b) + c
+    -- additive identity
+    a + zero === a
+
+    -- associativity of multiplication
+    a * (b * c) === (a * b) * c
+    -- distributivity of multiplication
+    a * (b + c) === (a * b) + (a * c)
+    -- multiplicative annihilator
+    a * zero === zero * a === zero
+@
+-}
+class NearSemiring a where
+    (+)     :: a -> a -> a
+    zero    :: a
+
+    (*)     :: a -> a -> a
+
+    default (+)  :: (Num a) => a -> a -> a
+    default zero :: (Num a) => a
+    default (*)  :: (Num a) => a -> a -> a
+
+    (+) = (Prelude.+)
+    zero = 0
+    (*) = (Prelude.*)
 
 {-|
 a 'Semiring' is a structure for which addition and multiplication are defined
@@ -37,24 +73,10 @@ rise to both a 'CommutativeMonoid' (addition and zero) and a 'Monoid'
     a * zero === zero * a === zero
 @
 -}
-class Semiring a where
-    (+)     :: a -> a -> a
-    zero    :: a
-
-    (*)     :: a -> a -> a
-    one     :: a
-
-    default (+)  :: (Num a) => a -> a -> a
-    default zero :: (Num a) => a
-    default (*)  :: (Num a) => a -> a -> a
+class (NearSemiring a) => Semiring a where
+    one :: a
     default one  :: (Num a) => a
-
-    (+) = (Prelude.+)
-    zero = 0
-    (*) = (Prelude.*)
     one = 1
-
-    {-# MINIMAL (+), zero, (*), one #-}
 
 infix 7 *
 infix 6 +
@@ -70,50 +92,50 @@ class (Semiring a) => CommutativeSemiring a
 
 --------------------------------------------------------------------------------
 
-instance Semiring () where
-    _ + _ = ()
-    _ * _ = ()
-    one = ()
-    zero = ()
+-- instance Semiring () where
+--     _ + _ = ()
+--     _ * _ = ()
+--     one = ()
+--     zero = ()
 
 --------------------------------------------------------------------------------
 
-instance Semiring Int where
+instance NearSemiring Int where
     (+) = (Prelude.+)
     (*) = (Prelude.*)
-    one = 1
     zero = 0
 
-instance Semiring Integer where
+instance NearSemiring Integer where
     (+) = (Prelude.+)
     (*) = (Prelude.*)
-    one = 1
     zero = 0
 
-instance Semiring Double where
+instance NearSemiring Double where
     (+) = (Prelude.+)
     (*) = (Prelude.*)
-    one = 1
     zero = 0
 
-instance Semiring Float where
+instance NearSemiring Float where
     (+) = (Prelude.+)
     (*) = (Prelude.*)
-    one = 1
     zero = 0
 
-instance Semiring Bool where
+instance NearSemiring Bool where
     (+) = (||)
-    zero = False
     (*) = (&&)
-    one = True
+    zero = True
 
-instance Semiring Rational where
+instance NearSemiring Rational where
     (+) = (Prelude.+)
     (*) = (Prelude.*)
-    one = 1
     zero = 0
 
+instance Semiring Int where one = 1
+instance Semiring Integer where one = 1
+instance Semiring Double where one = 1
+instance Semiring Float where one = 1
+instance Semiring Bool where one = True
+instance Semiring Rational where one = 1
 --------------------------------------------------------------------------------
 
 instance CommutativeSemiring Int

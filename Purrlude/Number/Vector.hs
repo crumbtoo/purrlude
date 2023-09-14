@@ -12,5 +12,4 @@ data V2 a = V2 a a
 instance (Semiring a) => Scalable (V2 a) where
     type Scalar (V2 a) = a
     s !* V2 a b = V2 (s*a) (s*b)
-    V2 a b *! s = V2 (a*s) (b*s)
 
