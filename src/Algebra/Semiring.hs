@@ -1,13 +1,12 @@
-{-# LANGUAGE DefaultSignatures #-}
+{-# LANGUAGE DefaultSignatures, PackageImports #-}
 module Algebra.Semiring
     ( Semiring(..)
     , NearSemiring(..)
     , CommutativeSemiring(..)
     ) where
 --------------------------------------------------------------------------------
-import           Prelude                hiding (Semigroup(..), Monoid(..), (+), (*))
-import qualified Prelude
-import           Algebra.Monoid
+import qualified "base" Prelude as Pre
+import           Prelude
 import           Control.Applicative    (liftA2)
 import           Numeric.Natural
 --------------------------------------------------------------------------------
@@ -43,9 +42,9 @@ class NearSemiring a where
     default zero :: (Num a) => a
     default (*)  :: (Num a) => a -> a -> a
 
-    (+) = (Prelude.+)
+    (+) = (Pre.+)
     zero = 0
-    (*) = (Prelude.*)
+    (*) = (Pre.*)
 
 {-|
 a 'Semiring' is a structure for which addition and multiplication are defined
@@ -113,28 +112,28 @@ instance CommutativeSemiring Bool
 --------------------------------------------------------------------------------
 
 instance NearSemiring Int where
-    (+) = (Prelude.+)
-    (*) = (Prelude.*)
+    (+) = (Pre.+)
+    (*) = (Pre.*)
     zero = 0
 
 instance NearSemiring Integer where
-    (+) = (Prelude.+)
-    (*) = (Prelude.*)
+    (+) = (Pre.+)
+    (*) = (Pre.*)
     zero = 0
 
 instance NearSemiring Double where
-    (+) = (Prelude.+)
-    (*) = (Prelude.*)
+    (+) = (Pre.+)
+    (*) = (Pre.*)
     zero = 0
 
 instance NearSemiring Float where
-    (+) = (Prelude.+)
-    (*) = (Prelude.*)
+    (+) = (Pre.+)
+    (*) = (Pre.*)
     zero = 0
 
 instance NearSemiring Rational where
-    (+) = (Prelude.+)
-    (*) = (Prelude.*)
+    (+) = (Pre.+)
+    (*) = (Pre.*)
     zero = 0
 
 instance Semiring Int where one = 1

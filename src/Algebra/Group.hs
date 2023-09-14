@@ -1,8 +1,10 @@
+{-# LANGUAGE PackageImports #-}
 module Algebra.Group
     ( Group(..)
     ) where
 --------------------------------------------------------------------------------
-import           Prelude            hiding ((+), Monoid(..), Semigroup(..))
+import qualified "base" Prelude as Pre
+import           Prelude
 import           Algebra.Monoid
 import           Data.Monoid        (Sum(..), Product(..), Any(..), All(..))
 import           Data.Ratio         ((%))
@@ -39,9 +41,9 @@ instance Group (Sum Integer)    where inverse = negate
 instance Group (Sum Double)     where inverse = negate
 instance Group (Sum Float)      where inverse = negate
 
-instance Group (Product Double)     where inverse = fmap (1/)
-instance Group (Product Float)      where inverse = fmap (1/)
-instance Group (Product Rational)   where inverse = fmap (1/)
+instance Group (Product Double)     where inverse = fmap (1 Pre./)
+instance Group (Product Float)      where inverse = fmap (1 Pre./)
+instance Group (Product Rational)   where inverse = fmap (1 Pre./)
 
 instance CommutativeGroup (Sum Int)
 instance CommutativeGroup (Sum Integer)
