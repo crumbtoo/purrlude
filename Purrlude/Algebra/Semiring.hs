@@ -37,7 +37,7 @@ rise to both a 'CommutativeMonoid' (addition and zero) and a 'Monoid'
     a * zero === zero * a === zero
 @
 -}
-class (Eq a) => Semiring a where
+class Semiring a where
     (+)     :: a -> a -> a
     zero    :: a
 

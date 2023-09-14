@@ -4,9 +4,11 @@ module Main (main) where
 --------------------------------------------------------------------------------
 import           Prelude                            hiding ( Semigroup, (<>)
                                                            , Monoid, mempty
+                                                           , (+), (*)
                                                            )
 import           Data.Proxy
 import           Algebra.Semigroup
+import           Algebra.Semiring
 import           Algebra.Monoid
 import           Test.QuickCheck
 import           Test.QuickCheck.Classes            ( Laws(..), lawsCheck
@@ -41,6 +43,32 @@ rightIdentity :: (EqArbShow a) => (a -> a -> a) -> a -> Law
 rightIdentity f e = ("Right Identity", p)
     where p = property $ \a ->
             a `f` e == a
+
+identity :: (EqArbShow a) => (a -> a -> a) -> a -> Law
+identity f e = ("Identity", p)
+    where p = property $ \a ->
+            a `f` e == a && e `f` a == a
+
+leftDistributivity :: (EqArbShow a) => (a -> a -> a) -> (a -> a -> a) -> Law
+leftDistributivity f g = ("Left Distributivity", p)
+    where p = property $ \a b c ->
+            a `f` (b `g` c) == (a `f` b) `g` (a `f` c)
+
+rightDistributivity :: (EqArbShow a) => (a -> a -> a) -> (a -> a -> a) -> Law
+rightDistributivity f g = ("Right Distributivity", p)
+    where p = property $ \a b c ->
+            (b `g` c) `f` a == (b `f` a) `g` (c `f` a)
+
+distributivity :: (EqArbShow a) => (a -> a -> a) -> (a -> a -> a) -> Law
+distributivity f g = ("Distributivity", p)
+    where p = property $ \a b c ->
+            a `f` (b `g` c) == (a `f` b) `g` (a `f` c)
+            && (b `g` c) `f` a == (b `f` a) `g` (c `f` a)
+
+annihilation :: (EqArbShow a) => (a -> a -> a) -> a -> Law
+annihilation f z = ("Annihilation", p)
+    where p = property $ \a ->
+            a `f` z == z && z `f` a == z
 
 --------------------------------------------------------------------------------
 
@@ -77,10 +105,23 @@ monoidLaws p = mklaws "Monoid" p
     , rightIdentity @a (<>) mempty
     ]
 
-scalableLaws :: forall a. (TestableLaws a, Scalable a) => Proxy a -> Laws
-scalableLaws p = mklaws "Scalable" p
-    [
+semiringLaws :: forall a. (TestableLaws a, Semiring a) => Proxy a -> Laws
+semiringLaws p = mklaws "Semiring" p
+    [ identity @a (+) zero
+    , commutativity @a (+)
+    , associativity @a (+)
+
+    , associativity @a (*)
+    , distributivity @a (*) (+)
+    , identity @a (*) one
+
+    , annihilation @a (*) zero
     ]
+
+-- scalableLaws :: forall a. (TestableLaws a, Scalable a) => Proxy a -> Laws
+-- scalableLaws p = mklaws "Scalable" p
+--     [
+--     ]
 
 --------------------------------------------------------------------------------
 
@@ -98,13 +139,19 @@ test_Product_Int = typeLaws (Proxy :: Proxy (Product Int))
         , monoidLaws
         ]
 
-test_V2_Int :: IO ()
-test_V2_Int = typeLaws (Proxy :: Proxy (V2 Int))
-    [ scalableLaws
+-- test_V2_Int :: IO ()
+-- test_V2_Int = typeLaws (Proxy :: Proxy (V2 Int))
+--     [ scalableLaws
+--     ]
+
+test_Maybe_Int :: IO ()
+test_Maybe_Int = typeLaws (Proxy :: Proxy (Maybe Int))
+    [ semiringLaws
     ]
 
 main :: IO ()
 main = do
     test_Sum_Int
     test_Product_Int
+    test_Maybe_Int
 
