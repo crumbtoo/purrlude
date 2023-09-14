@@ -7,7 +7,6 @@ import           Prelude                            hiding ( Semigroup, (<>)
                                                            , (+), (*)
                                                            )
 import           Data.Proxy
-import           Algebra.Semigroup
 import           Algebra.Semiring
 import           Algebra.Monoid
 import           Test.QuickCheck

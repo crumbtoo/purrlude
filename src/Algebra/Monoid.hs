@@ -3,6 +3,12 @@ module Algebra.Monoid
     , CommutativeMonoid(..)
     , Semigroup(..)
     , CommutativeSemigroup(..)
+
+    -- re-export newtypes
+    , Sum(..)
+    , Product(..)
+    , Any(..)
+    , All(..)
     ) where
 --------------------------------------------------------------------------------
 import           Prelude            hiding (Semigroup(..), Monoid(..), (+), (*))

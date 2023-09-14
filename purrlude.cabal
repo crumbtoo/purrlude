@@ -19,7 +19,6 @@ maintainer:         crumb@duck.com
 
 library
     exposed-modules:  Purrlude
-                    , Algebra.Semigroup
                     , Algebra.Group
                     , Algebra.Monoid
                     , Algebra.Scalable
@@ -27,6 +26,8 @@ library
                     , Algebra.VectorSpace
                     , Number.Peano
                     , Number.Vector
+
+    other-modules: Prelude
 
     default-extensions: NoImplicitPrelude
 
