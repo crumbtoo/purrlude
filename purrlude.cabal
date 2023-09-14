@@ -28,6 +28,8 @@ library
                     , Number.Peano
                     , Number.Vector
 
+    default-extensions: NoImplicitPrelude
+
     -- Modules included in this library but not exported.
 
     -- LANGUAGE extensions used by modules in this package.

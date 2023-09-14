@@ -77,6 +77,11 @@ monoidLaws p = mklaws "Monoid" p
     , rightIdentity @a (<>) mempty
     ]
 
+scalableLaws :: forall a. (TestableLaws a, Scalable a) => Proxy a -> Laws
+scalableLaws p = mklaws "Scalable" p
+    [
+    ]
+
 --------------------------------------------------------------------------------
 
 test_Sum_Int :: IO ()
@@ -92,6 +97,11 @@ test_Product_Int = typeLaws (Proxy :: Proxy (Product Int))
         , commutativeSemigroupLaws
         , monoidLaws
         ]
+
+test_V2_Int :: IO ()
+test_V2_Int = typeLaws (Proxy :: Proxy (V2 Int))
+    [ scalableLaws
+    ]
 
 main :: IO ()
 main = do
