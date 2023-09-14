@@ -23,6 +23,11 @@ class (Semigroup a) => Monoid a where
 
 {-|
 a 'Monoid', but commutative
+
+@
+    -- commutativity
+    a <> b === b <> a
+@
 -}
 class (CommutativeSemigroup a, Monoid a) => CommutativeMonoid a
 
