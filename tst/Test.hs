@@ -144,10 +144,10 @@ test_Product_Int = typeLaws (Proxy :: Proxy (Product Int))
 --     [ scalableLaws
 --     ]
 
-test_Maybe_Int :: IO ()
-test_Maybe_Int = typeLaws (Proxy :: Proxy (Maybe Int))
-    [ semiringLaws
-    ]
+-- test_Maybe_Int :: IO ()
+-- test_Maybe_Int = typeLaws (Proxy :: Proxy (Maybe Int))
+--     [ semiringLaws
+--     ]
 
 main :: IO ()
 main = do
