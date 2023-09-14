@@ -118,6 +118,18 @@ semiringLaws p = mklaws "Semiring" p
     , annihilation @a (*) zero
     ]
 
+nearSemiringLaws :: forall a. (TestableLaws a, NearSemiring a) => Proxy a -> Laws
+nearSemiringLaws p = mklaws "NearSemiring" p
+    [ identity @a (+) zero
+    , commutativity @a (+)
+    , associativity @a (+)
+
+    , associativity @a (*)
+    , leftDistributivity @a (*) (+)
+
+    , annihilation @a (*) zero
+    ]
+
 -- scalableLaws :: forall a. (TestableLaws a, Scalable a) => Proxy a -> Laws
 -- scalableLaws p = mklaws "Scalable" p
 --     [
@@ -144,10 +156,10 @@ test_Product_Int = typeLaws (Proxy :: Proxy (Product Int))
 --     [ scalableLaws
 --     ]
 
--- test_Maybe_Int :: IO ()
--- test_Maybe_Int = typeLaws (Proxy :: Proxy (Maybe Int))
---     [ semiringLaws
---     ]
+test_Maybe_Int :: IO ()
+test_Maybe_Int = typeLaws (Proxy :: Proxy (Maybe Int))
+    [ nearSemiringLaws
+    ]
 
 test_Bool :: IO ()
 test_Bool = typeLaws (Proxy :: Proxy Bool)

@@ -92,11 +92,33 @@ class (Semiring a) => CommutativeSemiring a
 
 --------------------------------------------------------------------------------
 
--- instance Semiring () where
---     _ + _ = ()
---     _ * _ = ()
---     one = ()
---     zero = ()
+-- trivial; zero-ring
+instance NearSemiring () where
+    _ + _ = ()
+    _ * _ = ()
+    zero = ()
+
+instance Semiring () where
+    one = ()
+
+--------------------------------------------------------------------------------
+instance NearSemiring (Maybe a) where
+    a + Nothing = a
+    Nothing + b = b
+
+    zero = Nothing
+
+    Nothing * _     = Nothing
+    _ * Nothing     = Nothing
+    Just a * Just b = Just a
+--------------------------------------------------------------------------------
+instance NearSemiring Bool where
+    (+) = (||)
+    (*) = (&&)
+    zero = False
+
+instance Semiring Bool where one = True
+instance CommutativeSemiring Bool
 
 --------------------------------------------------------------------------------
 
@@ -120,11 +142,6 @@ instance NearSemiring Float where
     (*) = (Prelude.*)
     zero = 0
 
-instance NearSemiring Bool where
-    (+) = (||)
-    (*) = (&&)
-    zero = True
-
 instance NearSemiring Rational where
     (+) = (Prelude.+)
     (*) = (Prelude.*)
@@ -134,7 +151,6 @@ instance Semiring Int where one = 1
 instance Semiring Integer where one = 1
 instance Semiring Double where one = 1
 instance Semiring Float where one = 1
-instance Semiring Bool where one = True
 instance Semiring Rational where one = 1
 --------------------------------------------------------------------------------
 
@@ -142,6 +158,5 @@ instance CommutativeSemiring Int
 instance CommutativeSemiring Integer
 instance CommutativeSemiring Double
 instance CommutativeSemiring Float
-instance CommutativeSemiring Bool
 instance CommutativeSemiring Rational
 
