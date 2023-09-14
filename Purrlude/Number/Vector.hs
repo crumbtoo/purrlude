@@ -9,7 +9,7 @@ import           Algebra.Semiring
 data V2 a = V2 a a
     deriving (Show, Eq)
 
-instance (Semiring a) => Scalable (V2 a) where
+instance (NearSemiring a) => Scalable (V2 a) where
     type Scalar (V2 a) = a
     s !* V2 a b = V2 (s*a) (s*b)
 
