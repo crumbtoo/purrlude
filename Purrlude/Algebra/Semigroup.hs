@@ -54,6 +54,9 @@ instance Semigroup (Maybe a) where
     Nothing <> a = a
     Just a  <> _ = Just a
 
+instance Semigroup () where
+    () <> () = ()
+
 --------------------------------------------------------------------------------
 
 instance Semigroup (Sum Int)        where (<>) = (+)

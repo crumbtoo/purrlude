@@ -102,16 +102,6 @@ instance Semiring () where
     one = ()
 
 --------------------------------------------------------------------------------
-instance NearSemiring (Maybe a) where
-    a + Nothing = a
-    Nothing + b = b
-
-    zero = Nothing
-
-    Nothing * _     = Nothing
-    _ * Nothing     = Nothing
-    Just a * Just b = Just a
---------------------------------------------------------------------------------
 instance NearSemiring Bool where
     (+) = (||)
     (*) = (&&)

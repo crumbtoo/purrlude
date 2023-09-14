@@ -34,6 +34,8 @@ instance Monoid Any where
 instance Monoid All where
     mempty = All True
 
+--------------------------------------------------------------------------------
+
 instance Monoid [a] where
     mempty = []
 
@@ -42,6 +44,11 @@ instance Monoid (a -> a) where
 
 instance Monoid (Maybe a) where
     mempty = Nothing
+
+instance Monoid () where
+    mempty = ()
+
+--------------------------------------------------------------------------------
 
 instance Monoid (Sum Int)        where mempty = 0
 instance Monoid (Sum Integer)    where mempty = 0

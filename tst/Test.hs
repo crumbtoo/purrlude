@@ -156,19 +156,27 @@ test_Product_Int = typeLaws (Proxy :: Proxy (Product Int))
 --     [ scalableLaws
 --     ]
 
-test_Maybe_Int :: IO ()
-test_Maybe_Int = typeLaws (Proxy :: Proxy (Maybe Int))
-    [ nearSemiringLaws
-    ]
+-- test_Maybe_Int :: IO ()
+-- test_Maybe_Int = typeLaws (Proxy :: Proxy (Maybe Int))
+--     [ nearSemiringLaws
+--     ]
 
 test_Bool :: IO ()
 test_Bool = typeLaws (Proxy :: Proxy Bool)
     [ semiringLaws
     ]
 
+test_unit :: IO ()
+test_unit = typeLaws (Proxy :: Proxy ())
+    [ monoidLaws
+    , semiringLaws
+    ]
+
 main :: IO ()
 main = do
     test_Sum_Int
     test_Product_Int
+    -- test_Maybe_Int
     test_Bool
+    test_unit
 
