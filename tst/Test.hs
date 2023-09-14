@@ -149,9 +149,14 @@ test_Product_Int = typeLaws (Proxy :: Proxy (Product Int))
 --     [ semiringLaws
 --     ]
 
+test_Bool :: IO ()
+test_Bool = typeLaws (Proxy :: Proxy Bool)
+    [ semiringLaws
+    ]
+
 main :: IO ()
 main = do
     test_Sum_Int
     test_Product_Int
-    test_Maybe_Int
+    test_Bool
 
