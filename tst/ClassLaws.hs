@@ -76,9 +76,18 @@ nearSemiringLaws p = mklaws "NearSemiring" p
     , annihilation @a (*) zero
     ]
 
--- instance (Arbitrary a) => Arbitrary (V2 a) where
---     arbitrary = do
---         x <- arbitrary
---         y <- arbitrary
---         pure $ V2 x y
+commutativeSemiringLaws :: forall a. (TestableLaws a, CommutativeSemiring a)
+                        => Proxy a -> Laws
+commutativeSemiringLaws p = mklaws "CommutativeSemiring" p
+    [ identity @a (+) zero
+    , commutativity @a (+)
+    , associativity @a (+)
+
+    , associativity @a (*)
+    , distributivity @a (*) (+)
+    , identity @a (*) one
+    , commutativity @a (*)
+
+    , annihilation @a (*) zero
+    ]
 

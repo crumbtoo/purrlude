@@ -26,7 +26,6 @@ main :: IO ()
 main = do
     test_Sum_Int
     test_Product_Int
-    -- test_Maybe_Int
     test_V2_Int
     test_Bool
     test_unit
