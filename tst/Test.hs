@@ -6,9 +6,8 @@ import           Prelude                            hiding ( Semigroup, (<>)
                                                            , Monoid, mempty
                                                            , (+), (*)
                                                            )
+import           Control.Monad
 import           Data.Proxy
-import           Algebra.Semiring
-import           Algebra.Monoid
 import           Test.QuickCheck
 import           Test.QuickCheck.Classes            ( Laws(..), lawsCheck
                                                     , lawsCheckMany
@@ -16,6 +15,10 @@ import           Test.QuickCheck.Classes            ( Laws(..), lawsCheck
 import           Text.Printf                        (printf)
 import           Data.Typeable                      (typeRep, Typeable)
 import           Data.Foldable                      (traverse_)
+
+import           Algebra.Semiring
+import           Algebra.Monoid
+import           Number.Vector
 --------------------------------------------------------------------------------
 
 -- temporary; don't feel like adding test-invariant rn
@@ -48,12 +51,14 @@ identity f e = ("Identity", p)
     where p = property $ \a ->
             a `f` e == a && e `f` a == a
 
-leftDistributivity :: (EqArbShow a) => (a -> a -> a) -> (a -> a -> a) -> Law
+leftDistributivity :: (EqArbShow a, EqArbShow b)
+                   => (a -> b -> b) -> (b -> b -> b) -> Law
 leftDistributivity f g = ("Left Distributivity", p)
     where p = property $ \a b c ->
             a `f` (b `g` c) == (a `f` b) `g` (a `f` c)
 
-rightDistributivity :: (EqArbShow a) => (a -> a -> a) -> (a -> a -> a) -> Law
+rightDistributivity :: (EqArbShow a, EqArbShow b)
+                    => (b -> a -> b) -> (b -> b -> b) -> Law
 rightDistributivity f g = ("Right Distributivity", p)
     where p = property $ \a b c ->
             (b `g` c) `f` a == (b `f` a) `g` (c `f` a)
@@ -129,10 +134,11 @@ nearSemiringLaws p = mklaws "NearSemiring" p
     , annihilation @a (*) zero
     ]
 
--- scalableLaws :: forall a. (TestableLaws a, Scalable a) => Proxy a -> Laws
--- scalableLaws p = mklaws "Scalable" p
---     [
---     ]
+instance (Arbitrary a) => Arbitrary (V2 a) where
+    arbitrary = do
+        x <- arbitrary
+        y <- arbitrary
+        pure $ V2 x y
 
 --------------------------------------------------------------------------------
 
@@ -171,11 +177,17 @@ test_unit = typeLaws (Proxy :: Proxy ())
     , semiringLaws
     ]
 
+test_V2_Int :: IO ()
+test_V2_Int = typeLaws (Proxy :: Proxy (V2 Int))
+    [ semiringLaws
+    ]
+
 main :: IO ()
 main = do
     test_Sum_Int
     test_Product_Int
     -- test_Maybe_Int
+    test_V2_Int
     test_Bool
     test_unit
 

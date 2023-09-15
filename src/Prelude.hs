@@ -2,13 +2,18 @@
 module Prelude
     ( id
     , fmap
-    , negate
+    , undefined
 
     -- common operators
     , (&&)
     , (||)
     , (++)
     , (.)
+    , ($)
+    , (<*>)
+    , (>>=)
+    , (>>)
+    , pure
 
     -- types
     , Int

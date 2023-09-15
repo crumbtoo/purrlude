@@ -24,6 +24,7 @@ library
                     , Algebra.Scalable
                     , Algebra.Semiring
                     , Algebra.VectorSpace
+                    , Algebra.Semimodule
                     , Number.Peano
                     , Number.Vector
 

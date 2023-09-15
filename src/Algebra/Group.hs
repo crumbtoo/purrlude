@@ -7,7 +7,6 @@ import qualified "base" Prelude as Pre
 import           Prelude
 import           Algebra.Monoid
 import           Data.Monoid        (Sum(..), Product(..), Any(..), All(..))
-import           Data.Ratio         ((%))
 --------------------------------------------------------------------------------
 
 {-|
@@ -35,11 +34,10 @@ class (Group a) => CommutativeGroup a
 
 --------------------------------------------------------------------------------
 
-
-instance Group (Sum Int)        where inverse = negate
-instance Group (Sum Integer)    where inverse = negate
-instance Group (Sum Double)     where inverse = negate
-instance Group (Sum Float)      where inverse = negate
+instance Group (Sum Int)        where inverse = Pre.negate
+instance Group (Sum Integer)    where inverse = Pre.negate
+instance Group (Sum Double)     where inverse = Pre.negate
+instance Group (Sum Float)      where inverse = Pre.negate
 
 instance Group (Product Double)     where inverse = fmap (1 Pre./)
 instance Group (Product Float)      where inverse = fmap (1 Pre./)

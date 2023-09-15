@@ -4,7 +4,6 @@ module Algebra.Scalable
     , scale
     ) where
 --------------------------------------------------------------------------------
-import qualified Prelude            as Pre
 import           Algebra.Semiring
 --------------------------------------------------------------------------------
 

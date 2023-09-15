@@ -1,20 +1,27 @@
 {-# LANGUAGE TypeFamilies #-}
-module Number.Vector where
+module Number.Vector
+    ( V2(V2)
+    )
+    where
 --------------------------------------------------------------------------------
-import           Prelude                (Show, Eq)
+import           Prelude
 import           Data.Functor
 import           Control.Applicative
 import           Control.Monad
-import           Algebra.Scalable
 import           Algebra.Semiring
 --------------------------------------------------------------------------------
 
 data V2 a = V2 a a
     deriving (Show, Eq)
 
-instance (NearSemiring a) => Scalable (V2 a) where
-    type Scalar (V2 a) = a
-    s !* (V2 a b) = V2 (s*a) (s*b)
+instance (NearSemiring a) => NearSemiring (V2 a) where
+    (V2 a b) + (V2 c d) = V2 (a + c) (b + d)
+    -- | Hadamard product / element-wise product / naive product
+    (V2 a b) * (V2 c d) = V2 (a * c) (b * d)
+    zero = V2 zero zero
+
+instance (Semiring a) => Semiring (V2 a) where
+    one = V2 one one
 
 --------------------------------------------------------------------------------
 
@@ -23,7 +30,11 @@ instance Functor V2 where
 
 instance Applicative V2 where
     pure a = V2 a a
-
-    -- V2 f g <*> V2 a b = V2 (f a) (g b)
     liftA2 f (V2 a b) (V2 c d) = V2 (f a c) (f b d)
+
+instance Monad V2 where
+    m >>= k = join' (fmap k m)
+        where
+            -- the diagonal of a 2x2 matrix :D
+            join' (V2 (V2 a _) (V2 _ d)) = V2 a d
 
