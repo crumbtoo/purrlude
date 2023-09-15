@@ -47,6 +47,15 @@ class NearSemiring a where
     (*) = (Pre.*)
 
 {-|
+a 'NearSemiring', but multiplication is commutative
+
+@
+    a * b === b * a
+@
+-}
+class (NearSemiring a) => CommutativeNearSemiring a
+
+{-|
 a 'Semiring' is a structure for which addition and multiplication are defined
 and abide by some familiar laws. the looser requirements than a 'Ring' or
 'Field' permit lawful instances for types such as @Nat@. every 'Semiring' gives
@@ -87,7 +96,7 @@ a 'Semiring', but multiplication is commutative
     a * b === b * a
 @
 -}
-class (Semiring a) => CommutativeSemiring a
+class (CommutativeNearSemiring a, Semiring a) => CommutativeSemiring a
 
 --------------------------------------------------------------------------------
 
@@ -107,6 +116,7 @@ instance NearSemiring Bool where
     zero = False
 
 instance Semiring Bool where one = True
+instance CommutativeNearSemiring Bool
 instance CommutativeSemiring Bool
 
 --------------------------------------------------------------------------------
@@ -142,6 +152,12 @@ instance Semiring Double where one = 1
 instance Semiring Float where one = 1
 instance Semiring Rational where one = 1
 --------------------------------------------------------------------------------
+
+instance CommutativeNearSemiring Int
+instance CommutativeNearSemiring Integer
+instance CommutativeNearSemiring Double
+instance CommutativeNearSemiring Float
+instance CommutativeNearSemiring Rational
 
 instance CommutativeSemiring Int
 instance CommutativeSemiring Integer
