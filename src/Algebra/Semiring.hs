@@ -3,6 +3,7 @@ module Algebra.Semiring
     ( Semiring(..)
     , NearSemiring(..)
     , CommutativeSemiring(..)
+    , CommutativeNearSemiring(..)
     ) where
 --------------------------------------------------------------------------------
 import qualified "base" Prelude as Pre

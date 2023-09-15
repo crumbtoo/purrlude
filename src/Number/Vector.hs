@@ -23,6 +23,9 @@ instance (NearSemiring a) => NearSemiring (V2 a) where
 instance (Semiring a) => Semiring (V2 a) where
     one = V2 one one
 
+instance (CommutativeNearSemiring a) => CommutativeNearSemiring (V2 a)
+instance (CommutativeSemiring a) => CommutativeSemiring (V2 a)
+
 --------------------------------------------------------------------------------
 
 instance Functor V2 where
