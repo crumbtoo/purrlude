@@ -28,9 +28,6 @@ instance (Semiring a) => Semiring (V2 a) where
 instance (CommutativeNearSemiring a) => CommutativeNearSemiring (V2 a)
 instance (CommutativeSemiring a) => CommutativeSemiring (V2 a)
 
--- instance Semimodule V2 where
---     r !* V2 a b = V2 (r*a) (r*b)
-
 instance (Semiring a) => Semimodule (V2 a) where
     type SemimoduleScalar (V2 a) = a
     r !* V2 a b = V2 (r*a) (r*b)

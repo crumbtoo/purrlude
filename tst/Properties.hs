@@ -1,4 +1,4 @@
-{-# LANGUAGE ConstraintKinds #-}
+{-# LANGUAGE ConstraintKinds, RankNTypes #-}
 module Properties where
 --------------------------------------------------------------------------------
 import           Test.QuickCheck
@@ -17,7 +17,7 @@ commutativity f = ("Commutativity", p)
     where p = property $ \a b ->
             a `f` b == b `f` a
 
-leftIdentity :: (EqArbShow a) => (a -> a -> a) -> a -> Law
+leftIdentity :: (EqArbShow a, EqArbShow b) => (b -> a -> a) -> b -> Law
 leftIdentity f e = ("Left Identity", p)
     where p = property $ \a ->
             e `f` a == a
@@ -38,7 +38,7 @@ leftDistributivity f g = ("Left Distributivity", p)
     where p = property $ \a b c ->
             a `f` (b `g` c) == (a `f` b) `g` (a `f` c)
 
-rightDistributivity :: (EqArbShow a, EqArbShow b)
+rightDistributivity :: forall {a} {b}. (EqArbShow a, EqArbShow b)
                     => (b -> a -> b) -> (b -> b -> b) -> Law
 rightDistributivity f g = ("Right Distributivity", p)
     where p = property $ \a b c ->

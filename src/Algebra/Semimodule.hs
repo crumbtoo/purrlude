@@ -17,15 +17,23 @@ import           Algebra.Monoid
  - multiplication realy makes sense without an identity  -}
 
 {-|
-a left module over a semiring. @r@ is a scalar type for @m@
+a left module over a semiring. defines scalar multiplication
 
-instances should respect the following laws, for all @r, s :: r@ and 
+instances should respect the following laws, for all @r, s :: SemimoduleScalar
+m@ and @x, y :: m@
 @
-    -- todo
+    -- left distributivity of scalar multiplication
+    r !* (x <> y) === r !* x <> r !* y
+    -- right distributivity of scalar multiplication
+    (r + s) !* x === r !* x + s !* x
+    -- associativity of scalar multiplication and non-scalar multiplication
+    (r * s) !* x === r !* (s !* x)
+    -- identity scalar
+    one !* x === x
 @
 -}
 
-class Semimodule m where
+class (NearSemiring m) => Semimodule m where
     type SemimoduleScalar m :: Type
     (!*) :: (Semiring (SemimoduleScalar m))
          => SemimoduleScalar m -> m -> m

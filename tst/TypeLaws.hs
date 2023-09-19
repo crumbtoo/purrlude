@@ -43,6 +43,7 @@ test_unit = typeLaws (Proxy :: Proxy ())
 test_V2_Int :: IO ()
 test_V2_Int = typeLaws (Proxy :: Proxy (V2 Int))
     [ commutativeSemiringLaws
+    , semimoduleLaws
     ]
 
 

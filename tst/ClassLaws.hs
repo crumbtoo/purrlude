@@ -1,5 +1,5 @@
 {-# LANGUAGE ConstraintKinds, KindSignatures, RankNTypes #-}
-{-# LANGUAGE TypeApplications, ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications, ScopedTypeVariables, FlexibleContexts #-}
 module ClassLaws where
 --------------------------------------------------------------------------------
 import           Prelude                            hiding ( Semigroup, (<>)
@@ -16,6 +16,7 @@ import           Data.Foldable                      (traverse_)
 import           Text.Printf                        (printf)
 
 import           Algebra.Semiring
+import           Algebra.Semimodule
 import           Algebra.Monoid
 
 import Properties
@@ -90,4 +91,20 @@ commutativeSemiringLaws p = mklaws "CommutativeSemiring" p
 
     , annihilation @a (*) zero
     ]
+
+semimoduleLaws :: forall a. ( TestableLaws a, Semimodule a
+                            , TestableLaws (SemimoduleScalar a)
+                            , Semiring (SemimoduleScalar a))
+               => Proxy a -> Laws
+semimoduleLaws p = mklaws "Semimodule" p
+    [ leftDistributivity scaleA (+)
+    , leftDistributivity scaleA (+)
+    , ("Interassociativity", property $ \r s x ->
+        (r*s :: SemimoduleScalar a) !* (x :: a) == r !* (s !* x))
+    , leftIdentity scaleA one
+    ]
+
+    where
+        scaleA :: SemimoduleScalar a -> a -> a
+        scaleA = (!*)
 
