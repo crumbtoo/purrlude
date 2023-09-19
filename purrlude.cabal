@@ -21,12 +21,13 @@ library
     exposed-modules:  Purrlude
                     , Algebra.Group
                     , Algebra.Monoid
-                    , Algebra.Scalable
                     , Algebra.Semiring
+                    , Algebra.Ring
                     , Algebra.VectorSpace
                     , Algebra.Semimodule
                     , Number.Peano
                     , Number.Vector
+                    , Number.Quaternion
 
     other-modules: Prelude
 

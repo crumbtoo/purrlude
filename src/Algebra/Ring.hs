@@ -1,11 +1,11 @@
+{-# LANGUAGE PackageImports #-}
 module Algebra.Ring
     ( Ring(..)
     , CommutativeRing(..)
     ) where
 --------------------------------------------------------------------------------
-import           Prelude            hiding (Semigroup(..), Monoid(..), (*), (+)
-                                           , negate, (-))
-import qualified Prelude            as Prelude
+import qualified "base" Prelude            as Prelude
+import           Prelude
 import           Algebra.Semiring
 --------------------------------------------------------------------------------
 

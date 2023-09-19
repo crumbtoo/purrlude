@@ -39,6 +39,9 @@ class NearSemiring a where
 
     (*)     :: a -> a -> a
 
+    infixl 7 *
+    infixl 6 +
+
     default (+)  :: (Num a) => a -> a -> a
     default zero :: (Num a) => a
     default (*)  :: (Num a) => a -> a -> a
@@ -86,9 +89,6 @@ class (NearSemiring a) => Semiring a where
     one :: a
     default one  :: (Num a) => a
     one = 1
-
-infix 7 *
-infix 6 +
 
 {-|
 a 'Semiring', but multiplication is commutative

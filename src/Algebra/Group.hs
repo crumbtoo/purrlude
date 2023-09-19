@@ -1,6 +1,8 @@
 {-# LANGUAGE PackageImports #-}
 module Algebra.Group
     ( Group(..)
+    , CommutativeGroup
+    , AbelianGroup
     ) where
 --------------------------------------------------------------------------------
 import qualified "base" Prelude as Pre
@@ -32,6 +34,7 @@ a 'Group' but commutative. often called an /Abelian Group/.
 -}
 class (Group a) => CommutativeGroup a
 
+type AbelianGroup = CommutativeGroup
 --------------------------------------------------------------------------------
 
 instance Group (Sum Int)        where inverse = Pre.negate
