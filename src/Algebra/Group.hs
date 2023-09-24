@@ -37,20 +37,20 @@ class (Group a) => CommutativeGroup a
 type AbelianGroup = CommutativeGroup
 --------------------------------------------------------------------------------
 
-instance Group (Sum Int)        where inverse = Pre.negate
-instance Group (Sum Integer)    where inverse = Pre.negate
-instance Group (Sum Double)     where inverse = Pre.negate
-instance Group (Sum Float)      where inverse = Pre.negate
+-- instance Group (Sum Int)        where inverse = Pre.negate
+-- instance Group (Sum Integer)    where inverse = Pre.negate
+-- instance Group (Sum Double)     where inverse = Pre.negate
+-- instance Group (Sum Float)      where inverse = Pre.negate
 
-instance Group (Product Double)     where inverse = fmap (1 Pre./)
-instance Group (Product Float)      where inverse = fmap (1 Pre./)
-instance Group (Product Rational)   where inverse = fmap (1 Pre./)
+-- instance Group (Product Double)     where inverse = fmap (1 Pre./)
+-- instance Group (Product Float)      where inverse = fmap (1 Pre./)
+-- instance Group (Product Rational)   where inverse = fmap (1 Pre./)
 
-instance CommutativeGroup (Sum Int)
-instance CommutativeGroup (Sum Integer)
-instance CommutativeGroup (Sum Double)
-instance CommutativeGroup (Sum Float)
+-- instance CommutativeGroup (Sum Int)
+-- instance CommutativeGroup (Sum Integer)
+-- instance CommutativeGroup (Sum Double)
+-- instance CommutativeGroup (Sum Float)
 
-instance CommutativeGroup (Product Double)
-instance CommutativeGroup (Product Float)
+-- instance CommutativeGroup (Product Double)
+-- instance CommutativeGroup (Product Float)
 

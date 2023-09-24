@@ -16,21 +16,21 @@ import           Algebra.Monoid
 data V2 a = V2 a a
     deriving (Show, Eq)
 
-instance (NearSemiring a) => NearSemiring (V2 a) where
-    (V2 a b) + (V2 c d) = V2 (a + c) (b + d)
-    -- | Hadamard product / element-wise product / naive product
-    (V2 a b) * (V2 c d) = V2 (a * c) (b * d)
-    zero = V2 zero zero
+-- instance (NearSemiring a) => NearSemiring (V2 a) where
+--     (V2 a b) + (V2 c d) = V2 (a + c) (b + d)
+--     -- | Hadamard product / element-wise product / naive product
+--     (V2 a b) * (V2 c d) = V2 (a * c) (b * d)
+--     zero = V2 zero zero
 
-instance (Semiring a) => Semiring (V2 a) where
-    one = V2 one one
+-- instance (Semiring a) => Semiring (V2 a) where
+--     one = V2 one one
 
-instance (CommutativeNearSemiring a) => CommutativeNearSemiring (V2 a)
-instance (CommutativeSemiring a) => CommutativeSemiring (V2 a)
+-- instance (CommutativeNearSemiring a) => CommutativeNearSemiring (V2 a)
+-- instance (CommutativeSemiring a) => CommutativeSemiring (V2 a)
 
-instance (Semiring a) => Semimodule (V2 a) where
-    type SemimoduleScalar (V2 a) = a
-    r !* V2 a b = V2 (r*a) (r*b)
+-- instance (Semiring a) => Semimodule (V2 a) where
+--     type SemimoduleScalar (V2 a) = a
+--     r !* V2 a b = V2 (r*a) (r*b)
 
 --------------------------------------------------------------------------------
 

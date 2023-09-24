@@ -1,7 +1,6 @@
 {-# LANGUAGE GADTs, PatternSynonyms #-}
 module Number.Peano
     ( Peano(..)
-    , (^)
     )
     where
 --------------------------------------------------------------------------------
@@ -13,19 +12,19 @@ data Peano where
     Zero :: Peano
     Succ :: Peano -> Peano
 
-instance NearSemiring Peano where
-    a + Zero = a
-    a * (Succ b) = a * b + a
+-- instance NearSemiring Peano where
+--     a + Zero = a
+--     a * (Succ b) = a * b + a
 
-    zero = Zero
+--     zero = Zero
 
-instance Semiring Peano where
-    one = Succ Zero
+-- instance Semiring Peano where
+--     one = Succ Zero
 
-instance CommutativeNearSemiring Peano
-instance CommutativeSemiring Peano
+-- instance CommutativeNearSemiring Peano
+-- instance CommutativeSemiring Peano
 
-(^) :: Peano -> Peano -> Peano
-a ^ Zero = one
-a ^ (Succ b) = a^b * a
+-- (^) :: Peano -> Peano -> Peano
+-- a ^ Zero = one
+-- a ^ (Succ b) = a^b * a
 

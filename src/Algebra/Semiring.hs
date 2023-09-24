@@ -10,6 +10,7 @@ import qualified "base" Prelude as Pre
 import           Prelude
 import           Control.Applicative    (liftA2)
 import           Numeric.Natural
+import           Algebra.Monoid
 --------------------------------------------------------------------------------
 
 {-|
@@ -33,22 +34,7 @@ distributivity. Gives rise to a 'CommutativeMonoid' (@a@, @(+)@, @zero@) via
     a * zero === zero * a === zero
 @
 -}
-class NearSemiring a where
-    (+)     :: a -> a -> a
-    zero    :: a
-
-    (*)     :: a -> a -> a
-
-    infixl 7 *
-    infixl 6 +
-
-    default (+)  :: (Num a) => a -> a -> a
-    default zero :: (Num a) => a
-    default (*)  :: (Num a) => a -> a -> a
-
-    (+) = (Pre.+)
-    zero = 0
-    (*) = (Pre.*)
+class (CommutativeMonoid (Sum a), Semigroup (Product a)) => NearSemiring a where
 
 {-|
 a 'NearSemiring', but multiplication is commutative
@@ -57,7 +43,7 @@ a 'NearSemiring', but multiplication is commutative
     a * b === b * a
 @
 -}
-class (NearSemiring a) => CommutativeNearSemiring a
+class (CommutativeSemigroup (Product a), NearSemiring a) => CommutativeNearSemiring a where
 
 {-|
 a 'Semiring' is a structure for which addition and multiplication are defined
@@ -102,67 +88,67 @@ class (CommutativeNearSemiring a, Semiring a) => CommutativeSemiring a
 --------------------------------------------------------------------------------
 
 -- trivial; zero-ring
-instance NearSemiring () where
-    _ + _ = ()
-    _ * _ = ()
-    zero = ()
+-- instance NearSemiring () where
+--     _ + _ = ()
+--     _ * _ = ()
+--     zero = ()
 
-instance Semiring () where
-    one = ()
-
---------------------------------------------------------------------------------
-instance NearSemiring Bool where
-    (+) = (||)
-    (*) = (&&)
-    zero = False
-
-instance Semiring Bool where one = True
-instance CommutativeNearSemiring Bool
-instance CommutativeSemiring Bool
+-- instance Semiring () where
+--     one = ()
 
 --------------------------------------------------------------------------------
+-- instance NearSemiring Bool where
+--     (+) = (||)
+--     (*) = (&&)
+--     zero = False
 
-instance NearSemiring Int where
-    (+) = (Pre.+)
-    (*) = (Pre.*)
-    zero = 0
+-- instance Semiring Bool where one = True
+-- instance CommutativeNearSemiring Bool
+-- instance CommutativeSemiring Bool
 
-instance NearSemiring Integer where
-    (+) = (Pre.+)
-    (*) = (Pre.*)
-    zero = 0
-
-instance NearSemiring Double where
-    (+) = (Pre.+)
-    (*) = (Pre.*)
-    zero = 0
-
-instance NearSemiring Float where
-    (+) = (Pre.+)
-    (*) = (Pre.*)
-    zero = 0
-
-instance NearSemiring Rational where
-    (+) = (Pre.+)
-    (*) = (Pre.*)
-    zero = 0
-
-instance Semiring Int where one = 1
-instance Semiring Integer where one = 1
-instance Semiring Double where one = 1
-instance Semiring Float where one = 1
-instance Semiring Rational where one = 1
 --------------------------------------------------------------------------------
 
-instance CommutativeNearSemiring Int
-instance CommutativeNearSemiring Integer
-instance CommutativeNearSemiring Double
-instance CommutativeNearSemiring Float
-instance CommutativeNearSemiring Rational
+-- instance NearSemiring Int where
+--     (+) = (Pre.+)
+--     (*) = (Pre.*)
+--     zero = 0
 
-instance CommutativeSemiring Int
-instance CommutativeSemiring Integer
-instance CommutativeSemiring Double
-instance CommutativeSemiring Float
-instance CommutativeSemiring Rational
+-- instance NearSemiring Integer where
+--     (+) = (Pre.+)
+--     (*) = (Pre.*)
+--     zero = 0
+
+-- instance NearSemiring Double where
+--     (+) = (Pre.+)
+--     (*) = (Pre.*)
+--     zero = 0
+
+-- instance NearSemiring Float where
+--     (+) = (Pre.+)
+--     (*) = (Pre.*)
+--     zero = 0
+
+-- instance NearSemiring Rational where
+--     (+) = (Pre.+)
+--     (*) = (Pre.*)
+--     zero = 0
+
+-- instance Semiring Int where one = 1
+-- instance Semiring Integer where one = 1
+-- instance Semiring Double where one = 1
+-- instance Semiring Float where one = 1
+-- instance Semiring Rational where one = 1
+--------------------------------------------------------------------------------
+
+-- instance CommutativeNearSemiring Int
+-- instance CommutativeNearSemiring Integer
+-- instance CommutativeNearSemiring Double
+-- instance CommutativeNearSemiring Float
+-- instance CommutativeNearSemiring Rational
+
+-- instance CommutativeSemiring Int
+-- instance CommutativeSemiring Integer
+-- instance CommutativeSemiring Double
+-- instance CommutativeSemiring Float
+-- instance CommutativeSemiring Rational
 

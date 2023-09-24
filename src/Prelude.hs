@@ -24,6 +24,9 @@ module Prelude
     , Maybe(..)
     , Bool(..)
 
+    , Sum(..)
+    , Product(..)
+
     -- typeclasses
     , Num
     , Eq
@@ -32,4 +35,5 @@ module Prelude
     where
 --------------------------------------------------------------------------------
 import "base" Prelude
+import Data.Monoid      (Sum(..), Product(..))
 
